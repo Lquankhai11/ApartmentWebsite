@@ -30,6 +30,19 @@ namespace ApartmentWebsite.Pages.User
         public string ErrorMessage { get; set; }
         public void OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var roleId = User.FindFirst(ClaimTypes.Role)?.Value;
+                if (roleId == "1")
+                {
+                    Response.Redirect("/User/Home");
+                }
+                else if (roleId == "2")
+                {
+                    Response.Redirect("/User/Dashboard");
+                }
+            }
+
             ErrorMessage = TempData["ErrorMessage"] as string;
         }
         public async Task<IActionResult> OnPostAsync()
