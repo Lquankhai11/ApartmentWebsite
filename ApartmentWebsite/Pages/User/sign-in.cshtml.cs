@@ -36,10 +36,12 @@ namespace ApartmentWebsite.Pages.User
                 if (roleId == "1")
                 {
                     Response.Redirect("/User/Home");
+                    return;
                 }
                 else if (roleId == "2")
                 {
                     Response.Redirect("/User/Dashboard");
+                    return;
                 }
             }
 
@@ -102,6 +104,11 @@ namespace ApartmentWebsite.Pages.User
             }
 
             return RedirectToPage("/User/Login");
+        }
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/User/Sign_in");
         }
 
     }
